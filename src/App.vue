@@ -3,6 +3,6 @@
   <router-view />
 </template>
 
-<script setup>
+<script setup lang="ts">
 // App root component
 </script>
