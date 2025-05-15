@@ -37,35 +37,63 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script>
 import { computed } from 'vue'
 
-interface Props {
-  id: string
-  name: string
-  level: string
-  school: string
-  avatarUrl?: string
-  className?: string
-  avgGrade?: number
-}
+export default {
+  name: 'StudentCard',
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    level: {
+      type: String,
+      required: true
+    },
+    school: {
+      type: String,
+      required: true
+    },
+    avatarUrl: {
+      type: String,
+      default: undefined
+    },
+    className: {
+      type: String,
+      default: ''
+    },
+    avgGrade: {
+      type: Number,
+      default: undefined
+    }
+  },
+  emits: ['select'],
+  setup(props) {
+    const initials = computed(() => {
+      return props.name
+        .split(' ')
+        .map(n => n[0])
+        .join('')
+        .toUpperCase()
+    });
 
-const props = defineProps<Props>()
-const emit = defineEmits(['select'])
+    const getGradeColor = (grade) => {
+      if (!grade) return 'bg-gray-200 text-gray-700'
+      if (grade >= 80) return 'bg-green-100 text-green-800'
+      if (grade >= 60) return 'bg-blue-100 text-blue-800'
+      if (grade >= 50) return 'bg-yellow-100 text-yellow-800'
+      return 'bg-red-100 text-red-800'
+    };
 
-const initials = computed(() => {
-  return props.name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase()
-})
-
-const getGradeColor = (grade?: number) => {
-  if (!grade) return 'bg-gray-200 text-gray-700'
-  if (grade >= 80) return 'bg-green-100 text-green-800'
-  if (grade >= 60) return 'bg-blue-100 text-blue-800'
-  if (grade >= 50) return 'bg-yellow-100 text-yellow-800'
-  return 'bg-red-100 text-red-800'
+    return {
+      initials,
+      getGradeColor
+    };
+  }
 }
 </script>

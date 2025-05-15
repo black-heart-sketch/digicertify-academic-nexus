@@ -4,7 +4,13 @@
   <ToastContainer />
 </template>
 
-<script setup lang="ts">
+<script>
 import ToastContainer from './components/ui/ToastContainer.vue';
-// App root component
+
+export default {
+  name: 'App',
+  components: {
+    ToastContainer
+  }
+}
 </script>

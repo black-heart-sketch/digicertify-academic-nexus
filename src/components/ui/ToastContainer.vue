@@ -26,8 +26,18 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script>
 import { useToast } from '@/hooks/use-toast';
 
-const { toasts, removeToast } = useToast();
+export default {
+  name: 'ToastContainer',
+  setup() {
+    const { toasts, removeToast } = useToast();
+    
+    return {
+      toasts,
+      removeToast
+    };
+  }
+}
 </script>
